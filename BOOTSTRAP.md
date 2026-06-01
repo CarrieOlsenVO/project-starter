@@ -21,8 +21,10 @@ First-run checklist after `gh repo create --template`. Follow in order.
 ## Strip-down for Learning-tier projects
 
 For Learning-tier (prototype, exploration) projects, you may safely delete:
-- `AI_POLICY.md` — operating-authority distinctions matter when stakes are higher.
 - `Architecture.md` if the project is small enough that `Spec.md` alone is honest.
+- `docs/adr/` if you're not tracking architectural decisions over time.
 - `.github/ISSUE_TEMPLATE/` and the PR template if you aren't using issue-based development.
 
-Keep regardless of tier: all of `.claude/`, `.github/hooks/`, `.github/workflows/`, `.gitignore`, `.env.example`, `.gitleaks.toml`, `SECURITY.md`, `BOOTSTRAP.md`, `Spec.md`, `CLAUDE.md`, `scripts/install-hooks.sh`, `scripts/verify-setup.sh`. The security layer never gets stripped.
+Keep regardless of tier: all of `.claude/`, `.github/hooks/`, `.github/workflows/`, `.gitignore`, `.env.example`, `.gitleaks.toml`, `SECURITY.md`, `AI_POLICY.md`, `BOOTSTRAP.md`, `Spec.md`, `CLAUDE.md`, `scripts/install-hooks.sh`, `scripts/verify-setup.sh`.
+
+`AI_POLICY.md` stays put even in lean mode. It is the operating-authority layer (what an AI agent may do autonomously versus what requires human hands), and that boundary matters more, not less, in projects with vulnerable users — e.g., a kids' app — where the never-autonomous tier (no production deletion, no emailing real users, human executes the irreversible) is exactly the line you don't want left implicit. The security layer never gets stripped.
