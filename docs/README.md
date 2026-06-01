@@ -4,7 +4,7 @@ Long-form project documentation. Top-level files (`Architecture.md`, `Spec.md`, 
 
 Common subdirectories:
 
-- `docs/adr/` — Architecture Decision Records. Always useful; included in this template.
+- `docs/adr/` — Architecture Decision Records. Useful once a project accumulates architectural decisions worth recording; safe to omit for small or short-lived projects (see BOOTSTRAP.md's strip-down section).
 - `docs/wireframes/` — UI wireframes and microcopy drafts (add when the project has UI).
 - `docs/research/` — research notes, user interviews, market scans (add when relevant).
 - `docs/reference/` — deep dives into complex features.

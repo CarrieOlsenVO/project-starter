@@ -21,9 +21,9 @@ First-run checklist after `gh repo create --template`. Follow in order.
 ## Strip-down for Learning-tier projects
 
 For Learning-tier (prototype, exploration) projects, you may safely delete:
-- `Architecture.md` if the project is small enough that `Spec.md` alone is honest.
+- `Architecture.md` if the project is small enough that `Spec.md` alone is honest — but keep it for projects with vulnerable users (children, patients, healthcare, finance), where the data-model and security decisions it documents are operating boundaries, not governance overhead.
 - `docs/adr/` if you're not tracking architectural decisions over time.
-- `.github/ISSUE_TEMPLATE/` and the PR template if you aren't using issue-based development.
+- `.github/ISSUE_TEMPLATE/` and the PR template — these support the issue-based-development pattern in CLAUDE.md's Template Defaults. Delete only if you also strip issue-based development from CLAUDE.md (typical for Learning-tier where you're optimizing for speed).
 
 Keep regardless of tier: all of `.claude/`, `.github/hooks/`, `.github/workflows/`, `.gitignore`, `.env.example`, `.gitleaks.toml`, `SECURITY.md`, `AI_POLICY.md`, `BOOTSTRAP.md`, `Spec.md`, `CLAUDE.md`, `scripts/install-hooks.sh`, `scripts/verify-setup.sh`.
 
