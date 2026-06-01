@@ -1,0 +1,28 @@
+title = "Project gitleaks config"
+
+# Inherits gitleaks' built-in ruleset (AWS, GitHub, Stripe, Google, Anthropic,
+# generic high-entropy strings). Project-specific provider rules go in the
+# project's own copy of this file after cloning — not here.
+#
+# Why no custom Anthropic rule: gitleaks 8.30+ includes Anthropic detection by
+# default. A custom rule with the same id silently shadows the default; a
+# renamed custom rule with a broader regex showed unpredictable behavior under
+# useDefault=true (matched at length=20, missed at length=40-100). Trust the
+# default and bump gitleaks if Anthropic ever changes their key format.
+#
+# Testing note: to deliberately trip the Anthropic rule for a hook test, the
+# fake key must match the real format — `sk-ant-api03-` + 93 word chars +
+# literal `AA` suffix. Real Anthropic keys end with `AA`; the rule's regex
+# requires it. Test keys without the suffix appear to be ignored even though
+# the rule is loaded, which caused several hours of debugging on 2026-05-31.
+# For routine hook trip-tests, use a `sk_live_*`-shaped Stripe key instead
+# (no shape quirks; the Stripe rule fires on any realistic-entropy key).
+#
+# Prefix-less keys (Supabase JWTs, raw hex tokens) are deliberately NOT
+# pattern-matched here. Shape-only regexes produce too many false positives,
+# which trains the team to ignore warnings. Those keys are protected
+# structurally: .gitignore blocks .env*, the protect-files hook blocks writes
+# to env files, and CI re-runs this scan on every push.
+
+[extend]
+useDefault = true

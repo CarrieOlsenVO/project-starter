@@ -1,0 +1,27 @@
+#!/usr/bin/env bash
+# Pre-commit secret scan. Installed via scripts/install-hooks.sh.
+# Fail-closed: no scanner → no commit.
+set -euo pipefail
+
+# Git hooks may run with a reduced PATH (no Homebrew prefix, etc.).
+# Search common install locations explicitly.
+GITLEAKS_BIN=""
+for candidate in \
+  "$(command -v gitleaks 2>/dev/null)" \
+  "/opt/homebrew/bin/gitleaks" \
+  "/usr/local/bin/gitleaks"
+do
+  if [[ -n "$candidate" && -x "$candidate" ]]; then
+    GITLEAKS_BIN="$candidate"
+    break
+  fi
+done
+
+if [[ -z "$GITLEAKS_BIN" ]]; then
+  echo "BLOCKED: gitleaks not found on PATH or in common install locations; commit refused." >&2
+  echo "This template fails closed: no secret scan means no commit." >&2
+  echo "Install: brew install gitleaks (mac) or https://github.com/gitleaks/gitleaks" >&2
+  exit 1
+fi
+
+git diff --cached | "$GITLEAKS_BIN" stdin --no-banner --redact --config=.gitleaks.toml
